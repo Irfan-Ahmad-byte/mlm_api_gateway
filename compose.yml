@@ -1,0 +1,48 @@
+services:
+  web:
+    build: .
+    container_name: mlm_gateway_app
+    ports:
+      - "10000:10000"
+    volumes:
+      - .:/app
+    depends_on:
+      mlm_gateway_redis:
+        condition: service_healthy
+    env_file:
+      - ./app/configs/.env
+    networks:
+      - mlm_gateway_network
+      - shared_network
+    # develop:
+    #   watch:
+    #     - action: sync+restart
+    #       path: ./app
+    #       target: /app
+
+  mlm_gateway_redis:
+    image: redis:7.4.2
+    ports:
+      - "6380:6379"
+    volumes:
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - mlm_gateway_network
+    env_file:
+      - ./app/configs/.env
+
+
+volumes:
+  pgdata:
+
+networks:
+  mlm_gateway_network:
+    driver: bridge
+  shared_network:
+    external: true
+    name: shared_network
