@@ -62,8 +62,3 @@ class AuthApiClient:
     async def get_login_history(self, access_token: str):
         headers = {"Token": f"Bearer {access_token}"}
         return await self.api_client.get(AuthApiEndPoints.LOGIN_HISTORY, headers=headers)
-
-
-
-# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ0NTMxNTEzfQ.crfyI3uTdIkhTbjRNT3D3eSUTFJnvsigGBs1OSnIfqE
-# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ3MTIyNjEzfQ.G4H6_g8Wd3sxI1LluHG5nKdkmRIlGXbvnoMRve0WL8g
