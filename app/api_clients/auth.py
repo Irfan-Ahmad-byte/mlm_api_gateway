@@ -45,12 +45,12 @@ class AuthApiClient:
 
     # Logout user by blacklisting refresh token
     async def logout(self, refresh_token: str):
-        headers = {"refresh_token": refresh_token}
+        headers = {"Token": refresh_token}
         return await self.api_client.post(AuthApiEndPoints.LOGOUT, body={}, headers=headers)
 
     # Refresh access token
     async def refresh(self, refresh_token: str):
-        headers = {"refresh_token": refresh_token}
+        headers = {"Token": refresh_token}
         return await self.api_client.post(AuthApiEndPoints.REFRESH, body={}, headers=headers)
 
     # Get user info using access token

@@ -76,3 +76,6 @@ class ApiClient:
     async def delete(self, endpoint: str,
                      headers: Optional[Dict[str, str]] = None) -> Union[Dict[str, Any], str]:
         return await self.send_request(endpoint, "DELETE", None, None, headers)
+    async def patch(self, endpoint: str, body: Dict[str, Any],
+                    headers: Optional[Dict[str, str]] = None) -> Union[Dict[str, Any], str]:
+        return await self.send_request(endpoint, "PATCH", body, None, headers)

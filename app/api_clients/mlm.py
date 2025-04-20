@@ -53,13 +53,13 @@ class MLMApiClient:
         return self.api_client.get(MLMApiEndPoints.ALL_BONUS)
     
     def mark_bonus_paid(self, bonus_id: str):
-        return self.api_client.post(MLMApiEndPoints.MARK_BONUS_PAID.format(bonus_id=bonus_id))
+        return self.api_client.patch(MLMApiEndPoints.MARK_BONUS_PAID.format(bonus_id=bonus_id))
     
     def pay_all_bonuses(self):
-        return self.api_client.post(MLMApiEndPoints.PAY_ALL_BONUSES)
+        return self.api_client.get(MLMApiEndPoints.PAY_ALL_BONUSES)
     
     def get_user_rank(self, user_id: str):
-        return self.api_client.get(MLMApiEndPoints.USER_RANK.format(user_id=user_id))
+        return self.api_client.post(MLMApiEndPoints.USER_RANK.format(user_id=user_id))
     
     def get_user_weekly_bonus_report(self, user_id: str):
         return self.api_client.get(MLMApiEndPoints.USER_WEEKLY_BONUS_REPORT.format(user_id=user_id))

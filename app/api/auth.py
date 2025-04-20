@@ -28,10 +28,6 @@ async def login(
 async def get_me(token: str = Header("Authorization")):
     return await auth_client.get_user(token)
 
-@router.post("/refresh", response_model=Token)
-async def refresh_token(token: str = Header("Authorization")):
-    return await auth_client.refresh(token)
-
 @router.post("/logout")
 async def logout(token: str = Header("Authorization")):
     return await auth_client.logout(token)
@@ -49,10 +45,9 @@ async def get_downline(token: str = Header("Authorization")):
     if not user:
         raise HTTPException(status_code=401, detail="Invalid token")
     
-    user = UserOut.model_validate_json(user)
     # Assuming the MLM API has an endpoint to get downline users
     mlm_client = MLMApiClient.prepare()
-    response = await mlm_client.get_downline(str(user.id))
+    response = await mlm_client.get_downline(str(user.get('id')))
     
     if not response:
         raise HTTPException(status_code=404, detail="Downline not found")
