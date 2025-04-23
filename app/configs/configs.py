@@ -19,7 +19,7 @@ class Configs(BaseSettings):
     SHORTENER_BASE_URL: str
     SHORTENER_API_KEY: str
     SHORTENER_API_SECRET: str
-    REDIS_URL: str = "redis://localhost:6379"
+    REDIS_URL: str = "redis://localhost:6379/0"
     # Other configurations can be added here
 
     # Example: API keys, secret keys, etc.
