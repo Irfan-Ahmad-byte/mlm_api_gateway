@@ -33,8 +33,6 @@ services:
       retries: 3
     networks:
       - mlm_gateway_network
-    env_file:
-      - ./app/configs/.env
 
 
 volumes:
