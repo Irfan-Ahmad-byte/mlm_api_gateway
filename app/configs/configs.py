@@ -23,7 +23,9 @@ class Configs(BaseSettings):
     # Other configurations can be added here
 
     # Example: API keys, secret keys, etc.
-    class Config:
-        env_file = ".env"
+    model_config = {
+        "extra": "allow",  # Or use "allow" if you want to access them via self.__dict__
+        "env_file": ".env"  # Load environment variables from .env file
+    }
 
 settings = Configs()
