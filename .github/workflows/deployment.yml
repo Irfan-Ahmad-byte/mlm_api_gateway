@@ -57,7 +57,7 @@ jobs:
             rm -rf -- !(code.zip|./app/configs/.env)
             unzip code.zip
             rm code.zip
-# cp $HOME/mlm_demo/.gateway_env app/configs/.env
+            cp $HOME/mlm_demo/.gateway_env app/configs/.env
 
       - name: Run Server
         uses: appleboy/ssh-action@v1.1.0
