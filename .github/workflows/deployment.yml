@@ -32,7 +32,7 @@ jobs:
 
       - name: Archive code into zip
         run: |
-          zip -r code.zip . -x "target/*"
+          zip -r code.zip
 
       - name: Upload zip file to server
         uses: appleboy/scp-action@v0.1.7
@@ -54,35 +54,9 @@ jobs:
           script: |
             cd $HOME/mlm_demo/${{ github.event.repository.name }}/
             shopt -s extglob
-            rm -rf -- !(code.zip)
+            rm -rf -- !(code.zip|.env)
             unzip code.zip
             rm code.zip
-
-      - name: Create .env file locally
-        run: |
-          echo "DB_URL=${{ secrets.MLM_SERVICE_BASE_URL || vars.MLM_SERVICE_BASE_URL }}" >> .env
-          echo "DB_USERNAME=${{ secrets.MLM_SERVICE_API_KEY || vars.MLM_SERVICE_API_KEY }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.MLM_SERVICE_API_SECRET || vars.MLM_SERVICE_API_SECRET }}" >> .env
-          echo "AUTH_URL=${{ secrets.AUTH_BASE_URL || vars.AUTH_BASE_URL }}" >> .env
-          echo "AUTH_USERNAME=${{ secrets.AUTH_API_KEY || vars.AUTH_API_KEY }}" >> .env
-          echo "AUTH_PASSWORD=${{ secrets.AUTH_API_SECRET || vars.AUTH_API_SECRET }}" >> .env
-          echo "SHORTENER_URL=${{ secrets.SHORTENER_BASE_URL || vars.SHORTENER_BASE_URL }}" >> .env
-          echo "SHORTENER_USERNAME=${{ secrets.SHORTENER_API_KEY || vars.SHORTENER_API_KEY }}" >> .env
-          echo "SHORTENER_PASSWORD=${{ secrets.SHORTENER_API_SECRET || vars.SHORTENER_API_SECRET }}" >> .env
-          echo "REDIS_URL=${{ secrets.REDIS_URL || vars.REDIS_URL }}" >> .env
-
-      - name: Upload .env file to server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_SERVER_IP || vars.SSH_SERVER_IP }}
-          username: ${{ secrets.SSH_SERVER_USER || vars.SSH_SERVER_USER }}
-          key: ${{ secrets.SSH_KEY || vars.SSH_KEY }}
-          source: ".env"
-          target: "$HOME/mlm_demo/${{ github.event.repository.name }}/app/configs/"
-          
-      - name: Clean up local temp_env directory
-        run: rm .env
-  
 
       - name: Run Server
         uses: appleboy/ssh-action@v1.1.0
