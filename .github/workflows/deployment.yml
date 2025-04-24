@@ -78,10 +78,10 @@ jobs:
           username: ${{ secrets.SSH_SERVER_USER || vars.SSH_SERVER_USER }}
           key: ${{ secrets.SSH_KEY || vars.SSH_KEY }}
           source: ".env"
-          target: "$HOME/mlm_demo/${{ github.event.repository.name }}/app/configs/.env"
+          target: "$HOME/mlm_demo/${{ github.event.repository.name }}/app/configs/"
           
       - name: Clean up local temp_env directory
-        run: rm -rf ./temp_env
+        run: rm .env
   
 
       - name: Run Server
