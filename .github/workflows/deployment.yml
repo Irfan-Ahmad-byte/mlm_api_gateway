@@ -54,7 +54,7 @@ jobs:
           script: |
             cd $HOME/mlm_demo/${{ github.event.repository.name }}/
             shopt -s extglob
-            rm -rf -- !(code.zip|.env)
+            rm -rf -- !(code.zip|app/configs/.env)
             unzip code.zip
             rm code.zip
 
