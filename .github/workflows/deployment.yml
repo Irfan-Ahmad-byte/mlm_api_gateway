@@ -60,17 +60,16 @@ jobs:
 
       - name: Create .env file locally
         run: |
-          mkdir -p ./temp_env/
-          echo "DB_URL=${{ secrets.MLM_SERVICE_BASE_URL || vars.MLM_SERVICE_BASE_URL }}" >> ./temp_env/.env
-          echo "DB_USERNAME=${{ secrets.MLM_SERVICE_API_KEY || vars.MLM_SERVICE_API_KEY }}" >> ./temp_env/.env
-          echo "DB_PASSWORD=${{ secrets.MLM_SERVICE_API_SECRET || vars.MLM_SERVICE_API_SECRET }}" >> ./temp_env/.env
-          echo "AUTH_URL=${{ secrets.AUTH_BASE_URL || vars.AUTH_BASE_URL }}" >> ./temp_env/.env
-          echo "AUTH_USERNAME=${{ secrets.AUTH_API_KEY || vars.AUTH_API_KEY }}" >> ./temp_env/.env
-          echo "AUTH_PASSWORD=${{ secrets.AUTH_API_SECRET || vars.AUTH_API_SECRET }}" >> ./temp_env/.env
-          echo "SHORTENER_URL=${{ secrets.SHORTENER_BASE_URL || vars.SHORTENER_BASE_URL }}" >> ./temp_env/.env
-          echo "SHORTENER_USERNAME=${{ secrets.SHORTENER_API_KEY || vars.SHORTENER_API_KEY }}" >> ./temp_env/.env
-          echo "SHORTENER_PASSWORD=${{ secrets.SHORTENER_API_SECRET || vars.SHORTENER_API_SECRET }}" >> ./temp_env/.env
-          echo "REDIS_URL=${{ secrets.REDIS_URL || vars.REDIS_URL }}" >> ./temp_env/.env
+          echo "DB_URL=${{ secrets.MLM_SERVICE_BASE_URL || vars.MLM_SERVICE_BASE_URL }}" >> .env
+          echo "DB_USERNAME=${{ secrets.MLM_SERVICE_API_KEY || vars.MLM_SERVICE_API_KEY }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.MLM_SERVICE_API_SECRET || vars.MLM_SERVICE_API_SECRET }}" >> .env
+          echo "AUTH_URL=${{ secrets.AUTH_BASE_URL || vars.AUTH_BASE_URL }}" >> .env
+          echo "AUTH_USERNAME=${{ secrets.AUTH_API_KEY || vars.AUTH_API_KEY }}" >> .env
+          echo "AUTH_PASSWORD=${{ secrets.AUTH_API_SECRET || vars.AUTH_API_SECRET }}" >> .env
+          echo "SHORTENER_URL=${{ secrets.SHORTENER_BASE_URL || vars.SHORTENER_BASE_URL }}" >> .env
+          echo "SHORTENER_USERNAME=${{ secrets.SHORTENER_API_KEY || vars.SHORTENER_API_KEY }}" >> .env
+          echo "SHORTENER_PASSWORD=${{ secrets.SHORTENER_API_SECRET || vars.SHORTENER_API_SECRET }}" >> .env
+          echo "REDIS_URL=${{ secrets.REDIS_URL || vars.REDIS_URL }}" >> .env
 
       - name: Upload .env file to server
         uses: appleboy/scp-action@v0.1.7
@@ -78,7 +77,7 @@ jobs:
           host: ${{ secrets.SSH_SERVER_IP || vars.SSH_SERVER_IP }}
           username: ${{ secrets.SSH_SERVER_USER || vars.SSH_SERVER_USER }}
           key: ${{ secrets.SSH_KEY || vars.SSH_KEY }}
-          source: "./temp_env/.env"
+          source: ".env"
           target: "$HOME/mlm_demo/${{ github.event.repository.name }}/app/configs/.env"
           
       - name: Clean up local temp_env directory
