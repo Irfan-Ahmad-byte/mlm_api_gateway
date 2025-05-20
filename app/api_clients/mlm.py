@@ -53,7 +53,7 @@ class MLMApiClient:
         return self.api_client.get(MLMApiEndPoints.ALL_BONUS)
     
     def mark_bonus_paid(self, bonus_id: str):
-        return self.api_client.patch(MLMApiEndPoints.MARK_BONUS_PAID.format(bonus_id=bonus_id))
+        return self.api_client.patch(MLMApiEndPoints.MARK_BONUS_PAID.format(bonus_id=bonus_id), {})
     
     def pay_all_bonuses(self):
         return self.api_client.get(MLMApiEndPoints.PAY_ALL_BONUSES)
